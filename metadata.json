@@ -1,0 +1,5 @@
+{
+  "name": "SmartDub - 智能视频配音",
+  "description": "智能视频配音工具，利用 Gemini AI 优化文案时长，实现声画同步。",
+  "requestFramePermissions": []
+}
