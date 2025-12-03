@@ -8,9 +8,31 @@ export interface VoiceSettings {
 
 export interface SubtitleSettings {
   show: boolean;
+  preset: 'classic' | 'modern' | 'outline' | 'custom';
+  
+  // Font
+  fontFamily: string;
   fontSize: number;
-  color: string;
-  style: 'classic' | 'modern' | 'outline';
+  textColor: string;
+  
+  // Background
+  backgroundColor: string;
+  backgroundOpacity: number; // 0-100
+  
+  // Effects
+  strokeColor: string;
+  strokeWidth: number;
+  
+  // Style
+  isBold: boolean;
+  isItalic: boolean;
+  isUnderline: boolean;
+  
+  // Layout
+  positionBottom: number; // %
+  lineSpacing: number; // em/px
+  letterSpacing: number; // px
+  alignment: 'left' | 'center' | 'right';
 }
 
 export type ProcessingStatus = 

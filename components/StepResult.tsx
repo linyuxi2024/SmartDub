@@ -19,6 +19,31 @@ export const StepResult: React.FC<Props> = ({
   // Mock subtitle extraction (take first sentence)
   const previewSubtitle = scriptText.split(/[.!?。！？]/)[0] + '...';
 
+  // Helper to calculate style for preview
+  const getSubtitleStyle = (): React.CSSProperties => {
+    const s = subtitleSettings;
+    const rgbaBg = `rgba(${parseInt(s.backgroundColor.slice(1,3),16)}, ${parseInt(s.backgroundColor.slice(3,5),16)}, ${parseInt(s.backgroundColor.slice(5,7),16)}, ${s.backgroundOpacity/100})`;
+    
+    return {
+      fontFamily: s.fontFamily,
+      fontSize: `${s.fontSize}px`, // Simple mapping for preview
+      color: s.textColor,
+      backgroundColor: rgbaBg,
+      fontWeight: s.isBold ? 'bold' : 'normal',
+      fontStyle: s.isItalic ? 'italic' : 'normal',
+      textDecoration: s.isUnderline ? 'underline' : 'none',
+      WebkitTextStroke: s.strokeWidth > 0 ? `${s.strokeWidth}px ${s.strokeColor}` : '0',
+      textAlign: s.alignment,
+      lineHeight: `${1.5 + s.lineSpacing}em`,
+      letterSpacing: `${s.letterSpacing}px`,
+      textShadow: s.strokeWidth === 0 && s.backgroundOpacity === 0 && s.textColor === '#ffffff' ? '0 1px 2px rgba(0,0,0,0.6)' : 'none',
+      padding: '4px 8px',
+      borderRadius: '4px',
+      maxWidth: '80%',
+      display: 'inline-block'
+    };
+  };
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center text-green-800 mb-6">
@@ -53,19 +78,14 @@ export const StepResult: React.FC<Props> = ({
 
              {/* Subtitle Overlay - Simulating burned-in subs */}
              {subtitleSettings.show && (
-                <div className="absolute bottom-12 left-0 right-0 text-center px-8 pointer-events-none">
-                  <span
-                    style={{
-                        color: subtitleSettings.color,
-                        fontSize: `${subtitleSettings.fontSize}px`,
-                        textShadow: subtitleSettings.style === 'outline' ? '2px 2px 0 #000' : '0 2px 4px rgba(0,0,0,0.8)',
-                        fontFamily: subtitleSettings.style === 'modern' ? 'sans-serif' : 'serif',
-                        fontWeight: subtitleSettings.style === 'modern' ? 'bold' : 'normal',
-                        backgroundColor: subtitleSettings.style === 'classic' ? 'rgba(0,0,0,0.6)' : 'transparent',
-                        padding: '4px 8px',
-                        borderRadius: '4px'
-                    }}
-                  >
+                <div 
+                  className="absolute left-0 right-0 pointer-events-none px-8"
+                  style={{
+                    bottom: `${subtitleSettings.positionBottom}%`,
+                    textAlign: subtitleSettings.alignment
+                  }}
+                >
+                  <span style={getSubtitleStyle()}>
                     {previewSubtitle}
                   </span>
                 </div>

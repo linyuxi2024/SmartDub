@@ -57,9 +57,21 @@ const App: React.FC = () => {
   
   const [subtitleSettings, setSubtitleSettings] = useState<SubtitleSettings>({
     show: true,
-    fontSize: 24,
-    color: '#ffffff',
-    style: 'classic'
+    preset: 'classic',
+    fontFamily: 'Noto Sans SC',
+    fontSize: 10, // Default changed to 10
+    textColor: '#ffffff',
+    backgroundColor: '#000000',
+    backgroundOpacity: 60,
+    strokeColor: '#000000',
+    strokeWidth: 0,
+    isBold: false,
+    isItalic: false,
+    isUnderline: false,
+    positionBottom: 5,
+    lineSpacing: 0,
+    letterSpacing: 0,
+    alignment: 'center'
   });
 
   const [durationAnalysis, setDurationAnalysis] = useState<DurationAnalysis>({
